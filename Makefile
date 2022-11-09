@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/08 14:54:41 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/09 10:20:29 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS_FILES		=						\
 
 HEADERS_FILES	=						\
 					vector.hpp			\
+					iterator.hpp		\
 
 
 ## ----- ADDPREFIX TO FILES ----- ##
