@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/09 10:20:29 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/09 14:03:21 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS_FILES		=						\
 HEADERS_FILES	=						\
 					vector.hpp			\
 					iterator.hpp		\
+					color.hpp			\
 
 
 ## ----- ADDPREFIX TO FILES ----- ##
@@ -160,7 +161,7 @@ opti: CFLAGS += -O3
 opti: obj $(NAME)
 
 leak: obj $(NAME)
-	@valgrind ./$(NAME)
+	@leaks --atExit -- ./$(NAME)
 
 setup:
 	@rm -rf LICENSE images README.md .git

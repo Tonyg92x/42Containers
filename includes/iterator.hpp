@@ -6,9 +6,11 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:17:50 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/09 11:25:58 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/09 14:47:14 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -38,10 +40,30 @@ class iterator
                 this->_ptr = rhs.getPtr();
             return (*this);
         }
-        iterator &  operator++(void) {_ptr++;}
 
+        iterator  operator++(int)
+        {
+            _ptr++;
+            return (*this);
+        }
+
+        T &     operator*(void)
+        {
+            return (*_ptr);
+        }
+    
+        bool    operator==(iterator const & rhs) const { return (_ptr == rhs.getPtr());}
+
+        bool    operator!=(iterator const & rhs) const { return (_ptr != rhs.getPtr());}
+        
+        bool    operator!() const 
+        {
+            if (_ptr)
+                return (true);
+            return (false);
+        }
     //  =============== PUBLIC METHOD'S         =============== //
-        T &     getPtr(void) const {return (_ptr);}        
+        T   *getPtr(void) const {return (_ptr);}        
 
     //  =============== PRIVATE METHOD'S        =============== //
     private:
