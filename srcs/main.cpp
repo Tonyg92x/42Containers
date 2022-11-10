@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/10 14:16:28 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/10 14:44:32 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "include.hpp"
 
 //  Timing
-#define MsBetweenTestType 1600
+#define MsBetweenTestType 550
 #define MsBetweenTest 300
 
 //  Test bool (do it or not)
@@ -28,8 +28,9 @@
 #define IteratorTests true
 
 //  Unit test
-#define IteratorConstructor false
+#define IteratorConstructor true
 #define IteratorOperatorOverload true
+#define IteratorDefenceTest true
 
 int	main(void)
 {
@@ -53,11 +54,7 @@ int	main(void)
         ft::vector<float>::iterator last = --(x.end());
 
         std::cout << GREEN << UNDERLINE << "\nTest for bidirectional iterator\n" << NORMAL << std::endl;
-        
-        int i = 0;
-        for (ft::vector<float>::iterator it = x.begin(); it != x.end(); it++)
-            std::cout << YELLOW << "Vector[" << i++ << "] " << NORMAL << "= " << *it << std::endl;
-        
+    
         std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
         // ===============  Constructor test's      ===============//
@@ -117,9 +114,11 @@ int	main(void)
                 std::cout << GREEN << "Copy assignation test 1: SUCCESS!" << NORMAL << std::endl;
             else
                 std::cout << RED << "Copy assignation test 1: ERROR" << NORMAL << std::endl;
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
         }
 
-        // ===============  Operator tests        ===============//
+        // ===============  Operator Overload tests ===============//
         {
             std::cout << RED << UNDERLINE << "\nOPERATOR OVERLOAD TEST'S" << NORMAL << std::endl;
 
@@ -152,9 +151,82 @@ int	main(void)
                     std::cout << GREEN << "Equality test 2: SUCCESS!" << NORMAL << std::endl;
                 else
                     std::cout << RED << "Equality test 2: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+                std::string str = "test";
+                ft::vector<std::string> strVec(5, str);
+                
+                ft::vector<std::string>::iterator   it0 = strVec.begin();
+                ft::vector<std::string>::iterator   it1 = strVec.begin();
+                it1++;
+
+                if (it0 == it1)
+                    std::cout << RED << "Equality test 3: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Equality test 3: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
             }
         
             //  Inequality test
+            {
+                std::cout << UNDERLINE << "\nOperator overload inequality test's\n" << NORMAL << std::endl;
+                
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Test 0
+                if (first != last)
+                    std::cout << GREEN << "Inequality test 0: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Inequality test 0: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                std::string str = "test";
+                ft::vector<std::string> strVec(5, str);
+                
+                ft::vector<std::string>::iterator   it0 = strVec.begin();
+                ft::vector<std::string>::iterator   it1 = strVec.begin();
+
+                it1++;
+                if (it0 != it1)
+                    std::cout << GREEN << "Inequality test 1: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Inequality test 1: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+                it0++;
+                if (it0 != it1)
+                    std::cout << RED << "Inequality test 2: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Inequality test 2: SUCCESS!" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+                it1--;
+                if (it1 != it0)
+                    std::cout << GREEN << "Inequality test 3: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Inequality test 3: ERROR" << NORMAL << std::endl;
+
+                //  Test 4
+                it0--;
+                if (it1 != it0)
+                    std::cout << RED << "Inequality test 4: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Inequality test 4: SUCCESS!" << NORMAL << std::endl;
+                
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+            }
+        
+            //  Deference test
+             
         }
         
     }
