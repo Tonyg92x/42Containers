@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/09 14:03:21 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/10 07:54:28 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS_DIR		= srcs/
 
 OBJ_DIR			= obj/
 
-INCLUDE_DIR		= includes/
+HEADERS_DIR		= includes/
 
 
 ## ----- FILES ----- ##
@@ -57,11 +57,9 @@ SRCS_FILES		=						\
 					main.cpp			\
 					
 
-HEADERS_FILES	=						\
-					vector.hpp			\
-					iterator.hpp		\
-					color.hpp			\
-
+HEADERS_HFILES	=						\
+					includes.hpp		\
+					
 
 ## ----- ADDPREFIX TO FILES ----- ##
 
@@ -69,16 +67,19 @@ OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 MAIN_SRCS		=	$(addprefix $(MAIN_DIR), $(MAIN_FILES))
 CLASS_SRCS		=	$(addprefix $(CLASS_DIR), $(CLASS_FILES))
 
-OBJ_FILES		=	$(SRCS_FILES:.cpp=.o) $(MAIN_FILES:.cpp=.o) $(CLASS_FILES:.cpp=.o)
+HEADERS_HSRCS	=	$(addprefix $(HEADERS_DIR), $(HEADERS_HFILES))
 
-HEADERS_SRCS	=	$(addprefix $(INCLUDE_DIR), $(HEADERS_FILES))
 
-VPATH			=	$(SRCS_DIR) $(MAIN_DIR) $(CLASS_DIR) $(HEADERS_SRCS)
+OBJ_FILES		=	$(SRCS_FILES:.cpp=.o) 		\
+					
+					
+VPATH			=	$(SRCS_DIR) $(HEADERS_DIR)
 
 ## ----- .C TO .O CONVERT ----- ##
 
 $(OBJ_DIR)%.o: %.cpp $(HEADERS_SRCS)
-	$(CC) $(CFLAGS) -I $(INCLUDE_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(HEADERS_DIR) -c $< -o $@
+
 #	Here you can add any header foler by adding -I $(header_directory)
 
 
