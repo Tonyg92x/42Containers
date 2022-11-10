@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/10 11:50:18 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/10 13:22:46 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ namespace ft
         //  =============== MODIFIER            =============== //
         
         //  MODIFIER -> ASSIGN
+        
 
         //  MODIFIER -> PUSH_BACK
         void    push_back(const value_type & val){addVal(val);}
@@ -204,7 +205,7 @@ namespace ft
             //  Add the value to the container
             void    addVal(const value_type & val)
             {
-                if (_nbElement + 1 > _maxElement)
+                if (_nbElement == _maxElement)
                     addMemoryXTwo();
                 _ptr[_nbElement++] = val;
             }
@@ -225,10 +226,14 @@ namespace ft
                     newData[x] = _ptr[x];
 
                 //  Deallocate previous pointer
-                _allocator.deallocate(_ptr, _maxElement);
+                if (_ptr)
+                    _allocator.deallocate(_ptr, _maxElement);
 
                 //  Save change
-                _maxElement = _maxElement * 2;
+                if (_maxElement == 0)
+                    _maxElement = 4;
+                else
+                    _maxElement = _maxElement * 2;
                 _ptr = newData;
             }
             
