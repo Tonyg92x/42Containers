@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/15 10:41:09 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/15 14:25:47 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,32 +152,40 @@ namespace ft
         
         //  =============== CAPACITY            =============== //
 
-        //  SIZE -> Return the number of element in the vector
+        //  Size -> Return the number of element in the vector
         size_type   size(void) const {return (_nbElement);}
 
-        //  MAX_SIZE -> Return the maximum number of element that the vector can hold
+        //  Max_size -> Return the maximum number of element that the vector can hold
+        size_type   max_size(void) const
+        {
+            size_t  size = sizeof(value_type) / 2;
 
-        //  RESIZE -> Change the size of the container so it can hold n number of elements
+            if (size == 0)
+                size = 1;
+            return (9223372036854775807 / size);
+        }
 
-        //  CAPACITY -> Return the size of the storage currently allocated in the vector
+        //  Resize -> Change the size of the container so it can hold n number of elements
+        
+
+        //  Capacity -> Return the size of the storage currently allocated in the vector
         size_type   capacity(void) const {return (_maxElement);};
 
-        //  EMPTY -> Return wheter the vector is empty or not
+        //  Empty -> Return wheter the vector is empty or not
 
-        //  RESERVE -> Request that the vector capacity be at least enough to contain n elements
+        //  Reserve -> Request that the vector capacity be at least enough to contain n elements
 
-
-        //  
+        //  Shrink_to_fit -> 
 
         //  =============== MODIFIER            =============== //
         
-        //  MODIFIER -> ASSIGN
+        //  Assign ->
         
 
-        //  MODIFIER -> PUSH_BACK
+        //  Push_back ->
         void    push_back(const value_type & val){addVal(val);}
 
-        // //  MODIFIER -> POP_BACK
+        // //  Pop_back ->
         void    pop_back(void)
         {
             if (_nbElement > 0)
@@ -187,22 +195,22 @@ namespace ft
             }
         }
 
-        //  MODIFIER -> INSERT
+        //  Insert ->
 
-        //  MODIFIER -> ERASE
+        //  Erase ->
 
-        //  MODIFIER -> SWAP
+        //  Swap ->
 
-        //  MODIFIER -> CLEAR
+        //  Clear ->
 
-        //  MODIFIER -> EMPLACE
+        //  Emplace ->
 
-        //  MODIFIER -> EMPLACE_BACK
+        //  Emplace_back ->
 
         //  =============== GET METHOD'S        =============== //
         public:
             
-            //  Get the allocator of the vector object
+            //  Get_allocator -> Return the vector allocator
             allocator_type  get_allocator(void) const {return (_allocator);}
     
         //  =============== PRIVATE METHOD'S    =============== //

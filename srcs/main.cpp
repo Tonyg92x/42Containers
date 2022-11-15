@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/15 10:23:20 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/15 14:20:01 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@
 //  Test bool (do it or not)
 
 //  =============== Bidirectional Iterator Test's   =============== //
-#define BidirectionalIteratorTests      true
+#define BidirectionalIteratorTests      false
 
 //  Constructors
 #define BIteratorConstructor            true
+#define BCopyConstructor                true
+#define BAssignationConstructor         true
 
 //  Operation overload
 #define BIteratorOperatorOverload       true
@@ -38,9 +40,20 @@
 #define BIteratorDeferenceRvalue        true
 #define BIteratorMultipass              true
 
+//  ==============  Vector test's                   =============== //
+#define VectorTests                     true
+
+//  Capacity test's
+#define VectorCapacityTests             true
+
+#define VectorSize                      true
+#define VectorMaxSize                   true
+#define VectorCapacity                  true
+
+
 int	main(void)
 {
-    // =============== Bidirectional iterator       ===============//
+    //  =============== Bidirectional iterator      =============== //
     if (BidirectionalIteratorTests)
     {
         //  Setting up a basic float vector and iterator's for future test's
@@ -59,7 +72,7 @@ int	main(void)
         ft::vector<float>::iterator first = x.begin();
         ft::vector<float>::iterator last = --(x.end());
 
-        std::cout << GREEN << UNDERLINE << "\nTest for bidirectional iterator\n" << NORMAL << std::endl;
+        std::cout << TEAL << UNDERLINE << "\nTest's for bidirectional iterator\n" << NORMAL << std::endl;
     
         std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
@@ -71,57 +84,64 @@ int	main(void)
             std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
             //  Copy constructor test
-            std::cout << UNDERLINE "\nCopy constructor test\n" << NORMAL << std::endl;
+            if (BCopyConstructor)
+            {
+                std::cout << UNDERLINE "\nCopy constructor test\n" << NORMAL << std::endl;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
-            ft::vector<float>::iterator CopyLast(last);
-            ft::vector<float>::iterator CopyFirst(first);
+                ft::vector<float>::iterator CopyLast(last);
+                ft::vector<float>::iterator CopyFirst(first);
 
-            std::cout << "first == " << *first << " == " << *CopyFirst << std::endl;
-            std::cout << "last == " << *last << " == " << *CopyLast << std::endl << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-            //  Test 0
-            if (last == CopyLast)
-                std::cout << GREEN << "Copy constructor test 0: SUCCESS!" << NORMAL << std::endl;
-            else
-                std::cout << RED << "Copy constructor test 0: ERROR" << NORMAL << std::endl;
+                //  Test 0
+                if (last == CopyLast)
+                    std::cout << GREEN << "Copy constructor test 0: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Copy constructor test 0: ERROR" << NORMAL << std::endl;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-            //  Test 1
-            if (first == CopyFirst)
-                std::cout << GREEN << "Copy constructor test 1: SUCCESS!" << NORMAL << std::endl;
-            else
-                std::cout << RED << "Copy constructor test 1: ERROR" << NORMAL << std::endl;
+                //  Test 1
+                if (first == CopyFirst)
+                    std::cout << GREEN << "Copy constructor test 1: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Copy constructor test 1: ERROR" << NORMAL << std::endl;
+            }
+ 
 
             //  Copy assignable test
-            std::cout << UNDERLINE << "\nCopy assignable test\n" << NORMAL << std::endl;
+            if (BAssignationConstructor)
+            {
+                std::cout << UNDERLINE << "\nCopy assignable test\n" << NORMAL << std::endl;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
-            ft::vector<float>::iterator assignCopyFirst = ++CopyFirst;
-            ft::vector<float>::iterator assignCopyLast = --CopyLast;
 
-            std::cout << "second == " << *(CopyFirst) << " == " << *assignCopyFirst << std::endl;
-            std::cout << "before last == " << *(CopyLast) << " == " << *assignCopyLast << std::endl << std::endl;
+                ft::vector<float>::iterator CopyLast(last);
+                ft::vector<float>::iterator CopyFirst(first);
 
-            //  Test 0
-            if (assignCopyFirst == CopyFirst)
-                std::cout << GREEN << "Copy assignation test 0: SUCCESS!" << NORMAL << std::endl;
-            else
-                std::cout << RED << "Copy assignation test 0: ERROR" << NORMAL << std::endl;
+                ft::vector<float>::iterator assignCopyFirst = ++CopyFirst;
+                ft::vector<float>::iterator assignCopyLast = --CopyLast;
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                //  Test 0
+                if (assignCopyFirst == CopyFirst)
+                    std::cout << GREEN << "Copy assignation test 0: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Copy assignation test 0: ERROR" << NORMAL << std::endl;
 
-            //  Test 1
-            if (assignCopyLast == CopyLast)
-                std::cout << GREEN << "Copy assignation test 1: SUCCESS!" << NORMAL << std::endl;
-            else
-                std::cout << RED << "Copy assignation test 1: ERROR" << NORMAL << std::endl;
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                //  Test 1
+                if (assignCopyLast == CopyLast)
+                    std::cout << GREEN << "Copy assignation test 1: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Copy assignation test 1: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+            }
+
         }
 
         // ===============  Operator Overload tests ===============//
@@ -346,5 +366,209 @@ int	main(void)
         }
            
     }
-	return (0);
+	
+    //  =============== Vector test's               =============== //
+    if (VectorTests)
+    {
+        std::cout << TEAL << UNDERLINE << "\nTest's for vector container\n" << NORMAL << std::endl;
+    
+        std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+        if (VectorCapacityTests)
+        {
+            std::cout << RED << UNDERLINE << "\nCAPACITY TEST'S\n" << NORMAL << std::endl;
+    
+            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+            //  Vector size test
+            if (VectorSize)
+            {
+                std::cout << UNDERLINE << "\nVector capacity max_size test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+                std::vector<int>    rV;
+                ft::vector<int>     fV;
+
+                rV.push_back(1);
+                rV.push_back(2);
+                rV.push_back(3);
+
+                fV.push_back(1);
+                fV.push_back(2);
+                fV.push_back(3);
+
+                //  Test 0
+                if (rV.size() != fV.size())
+                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                fV.push_back(4);
+                rV.push_back(4);
+                if (rV.size() != fV.size())
+                    std::cout << RED << "Vector size test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 1: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+                fV.push_back(5);
+                fV.push_back(6);
+                fV.push_back(7);
+                rV.push_back(5);
+                rV.push_back(6);
+                rV.push_back(7);
+
+                if (rV.size() != fV.size())
+                    std::cout << RED << "Vector size test 2: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 2: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+                fV.push_back(8);
+                fV.push_back(9);
+                fV.push_back(-10);
+                rV.push_back(8);
+                rV.push_back(9);
+                rV.push_back(-10);
+
+                if (rV.size() != fV.size())
+                    std::cout << RED << "Vector size test 3: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 3: SUCCESS!" << NORMAL << std::endl;
+            }
+
+            //  Vector max size test
+            if (VectorMaxSize)
+            {
+                std::cout << UNDERLINE << "\nVector capacity max_size test's\n" << NORMAL << std::endl;
+                
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup vector for test's
+                std::vector<int>            iRV;
+                ft::vector<int>             iV;
+
+                std::vector<float>          fRV;
+                ft::vector<float>           fV;
+
+                std::vector<double>         dRV;
+                ft::vector<double>          dV;
+
+                std::vector<char>           cRV;
+                ft::vector<char>            cV;
+
+                std::vector<std::string>    sRV;
+                ft::vector<std::string>     sV;
+
+                //  Test 0
+                if (iRV.max_size() != iV.max_size())
+                    std::cout << RED << "Vector max_size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector max_size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                    
+                //  Test 1
+                if (fRV.max_size() != fV.max_size())
+                    std::cout << RED << "Vector max_size test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector max_size test 1: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+                if (dRV.max_size() != dV.max_size())
+                    std::cout << RED << "Vector max_size test 2: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector max_size test 2: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+                if (cRV.max_size() != cV.max_size())
+                    std::cout << RED << "Vector max_size test 3: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector max_size test 3: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 4
+                if (sRV.max_size() != sV.max_size())
+                    std::cout << RED << "Vector max_size test 4: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector max_size test 4: SUCCESS!" << NORMAL << std::endl; 
+            }
+        
+            //  Vector capacity test
+            if (VectorCapacity)
+            {   
+                std::cout << UNDERLINE << "\nVector capacity capacity test's\n" << NORMAL << std::endl;
+                
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                // test 0
+                ft::vector<char>    vec;
+
+                if (vec.size() > vec.capacity())
+                    std::cout << RED << "Vector capacity test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector capacity test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  test 1
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                
+                if (vec.size() > vec.capacity())
+                    std::cout << RED << "Vector capacity test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector capacity test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  test 2
+                vec.push_back('a');
+                vec.push_back('a');
+                if (vec.size() > vec.capacity())
+                    std::cout << RED << "Vector capacity test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector capacity test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  test 3
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                vec.push_back('a');
+                if (vec.size() > vec.capacity())
+                    std::cout << RED << "Vector capacity test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector capacity test 0: SUCCESS!" << NORMAL << std::endl;
+            }
+        }
+    
+
+    }
+    return (0);
 }
