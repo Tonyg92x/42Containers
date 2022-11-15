@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/10 13:22:46 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/15 10:41:09 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,23 @@ namespace ft
 
         
         //  =============== CAPACITY            =============== //
+
+        //  SIZE -> Return the number of element in the vector
         size_type   size(void) const {return (_nbElement);}
 
+        //  MAX_SIZE -> Return the maximum number of element that the vector can hold
+
+        //  RESIZE -> Change the size of the container so it can hold n number of elements
+
+        //  CAPACITY -> Return the size of the storage currently allocated in the vector
         size_type   capacity(void) const {return (_maxElement);};
+
+        //  EMPTY -> Return wheter the vector is empty or not
+
+        //  RESERVE -> Request that the vector capacity be at least enough to contain n elements
+
+
+        //  
 
         //  =============== MODIFIER            =============== //
         

@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/15 10:21:24 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/15 10:23:20 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@
 
 int	main(void)
 {
-    ft::vector<float>   x;
-    
-    x.push_back(0);
-    x.push_back(12.2);
-    x.push_back(42.42);
-    x.push_back(-123);
-    x.push_back(-1000);
-    x.push_back(1000);
-    x.push_back(4242);
-    x.push_back(1);
-    x.push_back(-15);
-    x.push_back(201);
-
     // =============== Bidirectional iterator       ===============//
     if (BidirectionalIteratorTests)
     {
+        //  Setting up a basic float vector and iterator's for future test's
+        ft::vector<float>   x;
+        
+        x.push_back(0);
+        x.push_back(12.2);
+        x.push_back(42.42);
+        x.push_back(-123);
+        x.push_back(-1000);
+        x.push_back(1000);
+        x.push_back(4242);
+        x.push_back(1);
+        x.push_back(-15);
+        x.push_back(201);
         ft::vector<float>::iterator first = x.begin();
         ft::vector<float>::iterator last = --(x.end());
 
@@ -334,6 +334,7 @@ int	main(void)
                 std::cout << GREEN << "Add test here :)" << NORMAL << std::endl;
             }
 
+            //  Multipass test
             if (BIteratorMultipass)
             {
                 std::cout << UNDERLINE << "\nOperator overload Multipass test's\n" << NORMAL << std::endl;
@@ -343,8 +344,7 @@ int	main(void)
                 std::cout << GREEN << "Add test here :)" << NORMAL << std::endl;
             }
         }
-        
+           
     }
-    
 	return (0);
 }
