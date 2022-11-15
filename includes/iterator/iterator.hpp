@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:17:50 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/10 13:43:51 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/15 08:48:02 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ class iterator
         //  Prefix decrementation
         iterator & operator--(){_ptr--;return (*this);}
         
-        //  Deference operator overload
+        //  Deference lvalue operator overload
         T &     operator*(void) const{return (*_ptr);}
 
-        //  Deference operator overload
-        T &     operator->(void) const{return (*_ptr);}
+        //  Deference rvalue operator overload
+        T       *operator->(void) const{return &(operator*());}
 
         //  Boolean algeabra equal operator overload
         bool    operator==(iterator const & rhs) const { return (_ptr == rhs.getPtr());}
