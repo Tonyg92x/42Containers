@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 08:30:09 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/16 10:23:36 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 #define BIteratorEquality               true
 #define BIteratorInequality             true
 #define BIteratorDeferenceLvalue        true
-#define BIteratorDeferenceRvalue        true
-#define BIteratorMultipass              true
+#define BIteratorDeferenceRvalue        false
+#define BIteratorMultipass              false
 
 //  ==============  Vector test's                   =============== //
 #define VectorTests                     true
@@ -56,15 +56,13 @@
 //  Modifiers test's
 #define VectorModifierTests             true
 
-#define VectorAssign                    true
-#define VectorPushBack                  true
+#define VectorAssign                    false
+#define VectorPushBack                  false
 #define VectorPopBack                   true
-#define VectorInsert                    true
-#define VectorErase                     true
-#define VectorSwap                      true
-#define VectorClear                     true
-#define VectorEmplace                   true
-#define VectorEmplaceBack               true
+#define VectorInsert                    false
+#define VectorErase                     false
+#define VectorSwap                      false
+#define VectorClear                     false
 
 
 
@@ -93,7 +91,7 @@ int	main(void)
     
         std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
-        // ===============  Constructor test's      ===============//
+        // ===============  Constructor test's      ===============//     NOTE -> revise it and test with std vector
         if (BIteratorConstructor)
         {
             std::cout << RED << UNDERLINE << "\nCONSTRUCTOR TEST'S" << NORMAL << std::endl;
@@ -621,7 +619,311 @@ int	main(void)
     
         if (VectorModifierTests)
         {
+            //  Vector assign test
+            if (VectorAssign)
+            {
+                std::cout << UNDERLINE << "\nVector Modifier assign test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+                int i = 42;
+                
+                ft::vector<int> iVec(6, i);
+                
+                iVec.assign(50, 42);
+
+                //  Test 0
+                bool    engine = true;
+                ft::vector<int>::iterator   it = iVec.begin();
+                ft::vector<int>::iterator   end = iVec.end();
+
+                while (engine && it != end)
+                {
+                    if (*it != 42)
+                        engine = false;
+                    it++;
+                }
+
+                if (engine)
+                    std::cout << GREEN << "Vector assign test 0: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Vector assign test 0: ERROR" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                ft::vector<std::string> sVec;
+
+                sVec.assign(42, "yo");
+                if (sVec.size() == 42)
+                    std::cout << GREEN << "Vector assign test 1: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Vector assign test 1: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+
+                ft::vector<int> i2Vec;
+
+                i = 69;
+                
+                iVec.push_back(i);
+
+                i2Vec.assign(iVec.begin(), iVec.end());
+
+                if (i2Vec.size() == iVec.size())
+                    std::cout << GREEN << "Vector assign test 2: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Vector assign test 2: ERROR" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+
+                engine = true;
+
+                it = i2Vec.begin();
+                end = i2Vec.end();
+
+                int w = 0;
+                while (engine && it != end)
+                {
+                    if (iVec[w] != i2Vec[w])
+                        engine = false;
+                    it++;
+                    w++;
+                }
+
+                if (engine)
+                    std::cout << GREEN << "Vector assign test 3: SUCCESS!" << NORMAL << std::endl;
+                else
+                    std::cout << RED << "Vector assign test 3: ERROR" << NORMAL << std::endl;
+
+                //  Test 4
+            }
+
+            //  Vector push back test
+            if (VectorPushBack)
+            {
+                std::cout << UNDERLINE << "\nVector modifier push back test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+                ft::vector<int>     ftVec;
+                std::vector<int>    stdVec;
+
+                ftVec.push_back(0);
+                stdVec.push_back(0);
+
+                ft::vector<int>::iterator   ftIt = ftVec.begin();
+                std::vector<int>::iterator  stdIt = stdVec.begin();
+
+                //  Test 0
+                if (ftVec.size() != stdVec.size() || *ftIt != *stdIt)
+                    std::cout << RED << "Vector push_back test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector push_back test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                ftVec.push_back(-1);
+                stdVec.push_back(1);
+                ftIt++;
+                stdIt++;
+
+                if (ftVec.size() != stdVec.size() || *ftIt == *stdIt)
+                    std::cout << RED << "Vector push_back test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector push_back test 1: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+                ftVec.push_back(2);
+                ftVec.push_back(3);
+                ftVec.push_back(4);
+                ftVec.push_back(5);
+                ftVec.push_back(6);
+                ftVec.push_back(7);
+                ftVec.push_back(8);
+
+                stdVec.push_back(2);
+                stdVec.push_back(3);
+                stdVec.push_back(4);
+                stdVec.push_back(5);
+                stdVec.push_back(6);
+                stdVec.push_back(7);
+                stdVec.push_back(8);
+
+                if (ftVec.size() != stdVec.size() || ftVec[9] != stdVec[9])
+                    std::cout << RED << "Vector push_back test 2: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector push_back test 2: SUCCESS!" << NORMAL << std::endl;
+            }
+
+            //  Vector pop back test
+            if (VectorPopBack)
+            {
+                std::cout << UNDERLINE << "\nVector modifier pop back test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+                
+                //  Setup some variable for test's
+                float plop = 42;
+                
+                std::vector<float>  stdVec(12, plop);
+                ft::vector<float>   ftVec(12, plop);
+                
+                //  Test 0
+                if (stdVec.size() != ftVec.size())
+                    std::cout << RED << "Vector pop_back test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                stdVec.assign(5, -12.534);
+                ftVec.assign(5, -12.534);
+
+                stdVec.pop_back();
+                ftVec.pop_back();
+
+                if (stdVec.size() != ftVec.size())
+                    std::cout << RED << "Vector pop_back test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 1: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+
+                if (stdVec[4] != ftVec[4])
+                    std::cout << RED << "Vector pop_back test 2: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 2: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 3
+                stdVec.pop_back();
+                stdVec.pop_back();
+                stdVec.pop_back();
+
+                ftVec.pop_back();
+                ftVec.pop_back();
+                ftVec.pop_back();
+
+                if (stdVec.size() != ftVec.size())
+                    std::cout << RED << "Vector pop_back test 3: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 3: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 4
+
+                if (stdVec[0] != ftVec[0])
+                    std::cout << RED << "Vector pop_back test 4: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 4: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 5
+
+                ftVec.pop_back();
+                stdVec.pop_back();
+
+                if (ftVec.size() != stdVec.size())
+                    std::cout << RED << "Vector pop_back test 5: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector pop_back test 5: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
             
+            }
+
+            //  Vector insert test
+            if (VectorInsert)
+            {
+                std::cout << UNDERLINE << "\nVector modifier insert test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+
+                //  Test 0
+                if (true)
+                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+            }
+
+            //  Vector erase test
+            if (VectorErase)
+            {
+                std::cout << UNDERLINE << "\nVector modifier erase test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+
+                //  Test 0
+                if (true)
+                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+            }
+
+            //  Vector swap test
+            if (VectorSwap)
+            {
+                std::cout << UNDERLINE << "\nVector modifier swap test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+
+                //  Test 0
+                if (true)
+                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+            }
+
+            //  Vector Clear test
+            if (VectorClear)
+            {
+                std::cout << UNDERLINE << "\nVector modifier clear test's\n" << NORMAL << std::endl;
+                    
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup some variable for test's
+
+                //  Test 0
+                if (true)
+                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+                
+
+            }
         }
     }
     return (0);

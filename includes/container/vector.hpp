@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 08:25:17 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/16 10:12:30 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ namespace ft
             typedef typename    ft::reverse_iterator<value_type>                reverse_iterator;
             typedef typename    ft::const_iterator<const value_type>            const_iterator;
             typedef typename    ft::const_reverse_iterator<const value_type>    const_reverse_iterator;
+            typedef typename    ft::iterator<value_type>                        InputIterator;
+
             //  Add difference type here
             typedef unsigned long long                                          size_type;
         
@@ -50,8 +52,10 @@ namespace ft
             //  Fill constructor -> create N element with val as value
             vector(size_type n, value_type & val) : _nbElement(0), _maxElement(n), _allocator(init(n))
             {
-                for (size_type x = 0; x < n; x++)
-                   addVal(val);
+                ft_allocate(n);
+                _nbElement = n;
+                for (size_type i = 0; i < n; i++)
+                    _ptr[i] = val;
             }
 
             //  Overload assignation construtor for non ref values ?
@@ -70,11 +74,7 @@ namespace ft
             vector(vector const & rhs) {*this = rhs;}
         
         //  =============== DESTRUCTOR          =============== //
-            ~vector(void)
-            {
-                if (_ptr)
-                    _allocator.deallocate(_ptr, _maxElement);
-            };
+            ~vector(void){ft_deallocate();};
 
         //  =============== OPERATOR OVERLOAD   =============== //
 
@@ -207,12 +207,25 @@ namespace ft
 
         //  Reserve -> Request that the vector capacity be at least enough to contain n elements
 
-        //  Shrink_to_fit -> 
-
         //  =============== MODIFIER            =============== //
         
-        //  Assign ->
-        
+        //  Assign overload range -> Replace all memory in the vector for first to last
+        void    assign(InputIterator first, InputIterator last)
+        {
+            ft_deallocate();
+            for (iterator ite = first; ite != last; ite++)
+                addVal(*ite);
+        }
+
+        //  Assign overload fill -> Replace all memory in the vector for n element of value val
+        void    assign(size_type n, const value_type& val)
+        {
+            ft_deallocate();
+            ft_allocate(n);
+            _nbElement = n;
+            for (size_type i = 0; i < n; i++)
+                _ptr[i] = val;
+        }
 
         //  Push_back ->
         void    push_back(const value_type & val){addVal(val);}
@@ -235,9 +248,6 @@ namespace ft
 
         //  Clear ->
 
-        //  Emplace ->
-
-        //  Emplace_back ->
 
         //  =============== GET METHOD'S        =============== //
         public:
@@ -291,6 +301,27 @@ namespace ft
                 _ptr = newData;
             }
             
+
+            //  Allocate memory for n element
+            void    ft_allocate(size_type n)
+            {
+                if (_ptr)
+                    ft_deallocate();
+                _ptr = _allocator.allocate(n, 0);
+                _maxElement = n;
+            }
+
+            //  Destroy every element then deallocate the memory
+            void    ft_deallocate(void)
+            {
+                for (size_type n = 0; n < _nbElement; n++)
+                    _allocator.destroy(&_ptr[n]);
+                _allocator.deallocate(_ptr, _maxElement);
+                _nbElement = 0;
+                _maxElement = 0;
+                _ptr = NULL;
+            }
+
             //  Initialise an empty container
             allocator_type   init(void)
             {
@@ -317,6 +348,5 @@ namespace ft
             size_type                   _maxElement;
             value_type                  *_ptr;
             allocator_type              _allocator;
-    };
-    
-}
+    };  
+};
