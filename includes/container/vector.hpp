@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/15 14:25:47 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/16 08:25:17 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ namespace ft
                    addVal(val);
             }
 
+            //  Overload assignation construtor for non ref values ?
+            
             //  Range constructor -> create elements from iterrator begin to iterrator end
             vector(iterator first, iterator last) : _nbElement(0), _maxElement(0), _ptr(NULL), _allocator(init())
             {
@@ -166,7 +168,37 @@ namespace ft
         }
 
         //  Resize -> Change the size of the container so it can hold n number of elements
-        
+        void        resize(size_t n)
+        {
+            if (n == _nbElement)
+                return;
+            else if (n > _nbElement)
+            {
+                while (n > _nbElement)
+                    addVal(0);
+            }
+            else if (n < _nbElement)
+            {
+                while (n < _nbElement)
+                    pop_back();
+            }
+        }
+
+        void        resize(size_t n, value_type val)
+        {
+            if (n == _nbElement)
+                return;
+            else if (n > _nbElement)
+            {
+                while (n > _nbElement)
+                    addVal(val);
+            }
+            else if (n < _nbElement)
+            {
+                while (n < _nbElement)
+                    pop_back();
+            }
+        }
 
         //  Capacity -> Return the size of the storage currently allocated in the vector
         size_type   capacity(void) const {return (_maxElement);};

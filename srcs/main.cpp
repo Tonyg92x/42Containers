@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/15 14:20:01 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/16 08:30:09 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <cmath>
 #include "include.hpp"
 
 //  Timing
@@ -44,11 +45,27 @@
 #define VectorTests                     true
 
 //  Capacity test's
-#define VectorCapacityTests             true
+#define VectorCapacityTests             false
 
 #define VectorSize                      true
 #define VectorMaxSize                   true
+#define VectorResize                    true
 #define VectorCapacity                  true
+
+
+//  Modifiers test's
+#define VectorModifierTests             true
+
+#define VectorAssign                    true
+#define VectorPushBack                  true
+#define VectorPopBack                   true
+#define VectorInsert                    true
+#define VectorErase                     true
+#define VectorSwap                      true
+#define VectorClear                     true
+#define VectorEmplace                   true
+#define VectorEmplaceBack               true
+
 
 
 int	main(void)
@@ -508,6 +525,40 @@ int	main(void)
                     std::cout << GREEN << "Vector max_size test 4: SUCCESS!" << NORMAL << std::endl; 
             }
         
+            //  Vector resize test
+            if (VectorResize)
+            {
+                std::cout << UNDERLINE << "\nVector capacity max_size test's\n" << NORMAL << std::endl;
+                
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+
+                //  Setup vector for test's
+                int         i = 42;
+                double      d = 42;
+                float       f = 42;
+                std::string s = "42";
+
+                ft::vector<int> iVec(5, i);
+                ft::vector<double> dVec(5, d);
+                ft::vector<float> fVec(5, f);
+                ft::vector<std::string> sVec(5, s);
+
+                //  Test 0
+                iVec.resize(9);
+                dVec.resize(9);
+                fVec.resize(9);
+                // sVec.resize(9); Here we cant assign 0 as str value
+                
+                if (iVec.size() != 9 || dVec.size() != 9 || fVec.size() != 9 || sVec.size() != 9)
+                    std::cout << RED << "Vector resize test 0: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector resize test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1    
+            }
+
             //  Vector capacity test
             if (VectorCapacity)
             {   
@@ -568,7 +619,10 @@ int	main(void)
             }
         }
     
-
+        if (VectorModifierTests)
+        {
+            
+        }
     }
     return (0);
 }
