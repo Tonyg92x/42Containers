@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   ctor_size.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/23 13:00:53 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/23 13:13:56 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "vector_prelude.hpp"
 
-//  =============== CONTAINER'S HPP     =============== //
+int main()
+{
+    SETUP;
 
-#include "vector.hpp"
+    timer t;
+    for (int i = 0; i < 10; ++i) {
+        NAMESPACE::vector<int> v(MAXSIZE, rand());
 
+        BLOCK_OPTIMIZATION(v);
+    }
 
-//  =============== UTILS'S HPP         =============== //
-
-#include "colors.hpp"
+    PRINT_TIME(t);
+}

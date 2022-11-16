@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   leak_checker.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/08 20:08:24 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/11 16:13:56 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-//  =============== CONTAINER'S HPP     =============== //
+#include "memory_tracker.hpp"
 
-#include "vector.hpp"
+class leak_checker
+{
+public:
+    static void check_leaks();
+    static void check_alive_objects();
+    static void check_all();
 
-
-//  =============== UTILS'S HPP         =============== //
-
-#include "colors.hpp"
+private:
+    static memory_tracker tracker;
+};

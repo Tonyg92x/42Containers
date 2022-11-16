@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/10 07:54:28 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/16 16:27:35 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,12 +53,18 @@ HEADERS_DIR		= includes/
 
 
 ## ----- FILES ----- ##
-SRCS_FILES		=						\
-					main.cpp			\
+SRCS_FILES		=								\
+					main.cpp					\
 					
 
-HEADERS_HFILES	=						\
-					includes.hpp		\
+HEADERS_HFILES	=								\
+					colors.hpp					\
+					const_iterator.hpp			\
+					const_reverse.hpp			\
+					const_reverse_iterator.hpp	\
+					iterator.hpp				\
+					reverse_iterator.hpp		\
+					vector.hpp					\
 					
 
 ## ----- ADDPREFIX TO FILES ----- ##

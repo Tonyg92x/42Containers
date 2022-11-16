@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   index_operator.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/23 15:02:02 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/23 15:04:35 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "map_prelude.hpp"
 
-//  =============== CONTAINER'S HPP     =============== //
+int main()
+{
+    SETUP;
 
-#include "vector.hpp"
+    timer t;
 
+    NAMESPACE::map<int, int> m;
+    for (std::size_t i = 0; i < MAXSIZE / 2; ++i) {
+        m[rand()] = rand();
+    }
 
-//  =============== UTILS'S HPP         =============== //
-
-#include "colors.hpp"
+    PRINT_TIME(t);
+}

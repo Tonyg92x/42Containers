@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   timer.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/23 12:43:00 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/23 12:52:24 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-//  =============== CONTAINER'S HPP     =============== //
+#include <sys/time.h>
 
-#include "vector.hpp"
+class timer
+{
+public:
+    timer();
 
+public:
+    long get_time();
+    void reset();
 
-//  =============== UTILS'S HPP         =============== //
-
-#include "colors.hpp"
+private:
+    struct timeval stamp;
+};

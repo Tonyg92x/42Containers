@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   insert.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/23 15:39:13 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/23 20:30:34 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "set_prelude.hpp"
 
-//  =============== CONTAINER'S HPP     =============== //
+int main()
+{
+    SETUP;
 
-#include "vector.hpp"
+    NAMESPACE::set<int> data;
 
+    timer t;
 
-//  =============== UTILS'S HPP         =============== //
+    for (std::size_t i = 0; i < MAXSIZE / 2; ++i) {
+        data.insert(rand());
+    }
 
-#include "colors.hpp"
+    PRINT_TIME(t);
+}

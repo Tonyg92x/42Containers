@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 10:23:36 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:14:44 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@
 
 #define VectorAssign                    false
 #define VectorPushBack                  false
-#define VectorPopBack                   true
-#define VectorInsert                    false
+#define VectorPopBack                   false
+#define VectorInsert                    true
 #define VectorErase                     false
 #define VectorSwap                      false
 #define VectorClear                     false
@@ -856,12 +856,67 @@ int	main(void)
                 std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
                 //  Setup some variable for test's
+                std::vector<int>            stdIVec;
+                std::vector<std::string>    stdSVec;
 
+                ft::vector<int>             ftIVec;
+                ft::vector<std::string>     ftSVec;
+
+                stdIVec.push_back(1);
+                stdIVec.push_back(10);
+                stdIVec.push_back(11);
+                stdIVec.push_back(12);
+
+                ftIVec.push_back(1);
+                ftIVec.push_back(10);
+                ftIVec.push_back(11);
+                ftIVec.push_back(12);
+                
+                stdSVec.push_back("1");
+                stdSVec.push_back("10");
+                stdSVec.push_back("11");
+                stdSVec.push_back("12");
+
+                ftSVec.push_back("1");
+                ftSVec.push_back("10");
+                ftSVec.push_back("11");
+                ftSVec.push_back("12");
+
+                std::vector<int>::iterator stdIIt = stdIVec.begin();
+                std::vector<std::string>::iterator stdSIt = stdSVec.begin();
+
+                ft::vector<int>::iterator ftIIt = ftIVec.begin();
+                ft::vector<std::string>::iterator ftSIt = ftSVec.begin();
+
+                stdIIt++;
+                stdSIt++;
+                ftIIt++;
+                ftSIt++;
+
+                ftIVec.insert(ftIIt, 2);
+                stdIVec.insert(stdIIt, 2);
+                
                 //  Test 0
-                if (true)
-                    std::cout << RED << "Vector size test 0: ERROR" << NORMAL << std::endl;
+                if (ftIVec[1] != stdIVec[1])
+                    std::cout << RED << "Vector insert test 0: ERROR" << NORMAL << std::endl;
                 else
-                    std::cout << GREEN << "Vector size test 0: SUCCESS!" << NORMAL << std::endl;
+                    std::cout << GREEN << "Vector insert test 0: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 1
+                if (ftIVec[2] != stdIVec[2])
+                    std::cout << RED << "Vector insert test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector insert test 1: SUCCESS!" << NORMAL << std::endl;
+
+                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+
+                //  Test 2
+                if (ftIVec[3] != stdIVec[3])
+                    std::cout << RED << "Vector insert test 1: ERROR" << NORMAL << std::endl;
+                else
+                    std::cout << GREEN << "Vector insert test 1: SUCCESS!" << NORMAL << std::endl;
 
                 std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   include.hpp                                        :+:      :+:    :+:   */
+/*   stack_tests.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mleblanc <mleblanc@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 07:50:58 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:27:52 by aguay            ###   ########.fr       */
+/*   Created: 2022/05/09 20:00:20 by mleblanc          #+#    #+#             */
+/*   Updated: 2022/05/14 19:04:47 by mleblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-//  =============== CONTAINER'S HPP     =============== //
-
-#include "vector.hpp"
-
-
-//  =============== UTILS'S HPP         =============== //
-
-#include "colors.hpp"
+void stack_check_typedefs();
+void stack_test_comparisons_eq();
+void stack_test_comparisons_ne();
+void stack_test_comparisons_lt();
+void stack_test_comparisons_le();
+void stack_test_comparisons_gt();
+void stack_test_comparisons_ge();
+void stack_test_misc();
