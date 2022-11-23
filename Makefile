@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/16 16:27:35 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/23 14:17:23 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +60,15 @@ SRCS_FILES		=								\
 HEADERS_HFILES	=								\
 					colors.hpp					\
 					const_iterator.hpp			\
-					const_reverse.hpp			\
 					const_reverse_iterator.hpp	\
+					include.hpp					\
+					iterator_tags.hpp			\
+					iterator_traits.hpp			\
+					iterator_utils.hpp			\
 					iterator.hpp				\
 					reverse_iterator.hpp		\
-					vector.hpp					\
+					vector_iterator.hpp			\
+					vector.hpp					
 					
 
 ## ----- ADDPREFIX TO FILES ----- ##

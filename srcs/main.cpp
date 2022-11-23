@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 13:20:00 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 16:14:44 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/23 14:46:13 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,19 @@
 #define MsBetweenTestType 500
 #define MsBetweenTest 200
 
-//  Test bool (do it or not)
+//  =============== Iterator-traits Test's          =============== //
+#define IteratorTraitsTests             true
 
-//  =============== Bidirectional Iterator Test's   =============== //
-#define BidirectionalIteratorTests      false
 
-//  Constructors
-#define BIteratorConstructor            true
-#define BCopyConstructor                true
-#define BAssignationConstructor         true
+//  =============== Vector Iterator Test's          =============== //
+#define VectorIteratorTests             true
 
-//  Operation overload
-#define BIteratorOperatorOverload       true
-#define BIteratorEquality               true
-#define BIteratorInequality             true
-#define BIteratorDeferenceLvalue        true
-#define BIteratorDeferenceRvalue        false
-#define BIteratorMultipass              false
 
 //  ==============  Vector test's                   =============== //
 #define VectorTests                     true
 
 //  Capacity test's
-#define VectorCapacityTests             false
+#define VectorCapacityTests             true
 
 #define VectorSize                      true
 #define VectorMaxSize                   true
@@ -56,9 +46,9 @@
 //  Modifiers test's
 #define VectorModifierTests             true
 
-#define VectorAssign                    false
-#define VectorPushBack                  false
-#define VectorPopBack                   false
+#define VectorAssign                    true
+#define VectorPushBack                  true
+#define VectorPopBack                   true
 #define VectorInsert                    true
 #define VectorErase                     false
 #define VectorSwap                      false
@@ -68,318 +58,54 @@
 
 int	main(void)
 {
-    //  =============== Bidirectional iterator      =============== //
-    if (BidirectionalIteratorTests)
+    //  ===============  Iterator traits test's     =============== //
+    if (IteratorTraitsTests)
     {
-        //  Setting up a basic float vector and iterator's for future test's
-        ft::vector<float>   x;
-        
-        x.push_back(0);
-        x.push_back(12.2);
-        x.push_back(42.42);
-        x.push_back(-123);
-        x.push_back(-1000);
-        x.push_back(1000);
-        x.push_back(4242);
-        x.push_back(1);
-        x.push_back(-15);
-        x.push_back(201);
-        ft::vector<float>::iterator first = x.begin();
-        ft::vector<float>::iterator last = --(x.end());
-
-        std::cout << TEAL << UNDERLINE << "\nTest's for bidirectional iterator\n" << NORMAL << std::endl;
+        std::cout << TEAL << UNDERLINE << "\nTest's for iterator traits\n" << NORMAL << std::endl;
     
         std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
 
-        // ===============  Constructor test's      ===============//     NOTE -> revise it and test with std vector
-        if (BIteratorConstructor)
-        {
-            std::cout << RED << UNDERLINE << "\nCONSTRUCTOR TEST'S" << NORMAL << std::endl;
-    
-            std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+        typedef ft::iterator_traits<int*> ft_traits;
+        typedef std::iterator_traits<int*> std_traits;
 
-            //  Copy constructor test
-            if (BCopyConstructor)
-            {
-                std::cout << UNDERLINE "\nCopy constructor test\n" << NORMAL << std::endl;
+        //  Test 0
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+        if (typeid(ft_traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+            std::cout << GREEN << "Ierator traits test 0: SUCCESS!" << NORMAL << std::endl;
+        else
+            std::cout << RED << "Ierator traits test 0: ERROR" << NORMAL << std::endl;
 
-                ft::vector<float>::iterator CopyLast(last);
-                ft::vector<float>::iterator CopyFirst(first);
+        std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+        //  Test 1
+        if (typeid(ft_traits::difference_type)==typeid(std_traits::difference_type))
+            std::cout << GREEN << "Ierator traits test 1: SUCCESS!" << NORMAL << std::endl;
+        else
+            std::cout << RED << "Ierator traits test 1: ERROR" << NORMAL << std::endl;
 
-                //  Test 0
-                if (last == CopyLast)
-                    std::cout << GREEN << "Copy constructor test 0: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Copy constructor test 0: ERROR" << NORMAL << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
+        //  Test 2
+        if (typeid(ft_traits::pointer)==typeid(std_traits::pointer))
+            std::cout << GREEN << "Ierator traits test 2: SUCCESS!" << NORMAL << std::endl;
+        else
+            std::cout << RED << "Ierator traits test 2: ERROR" << NORMAL << std::endl;
 
-                //  Test 1
-                if (first == CopyFirst)
-                    std::cout << GREEN << "Copy constructor test 1: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Copy constructor test 1: ERROR" << NORMAL << std::endl;
-            }
- 
+        std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-            //  Copy assignable test
-            if (BAssignationConstructor)
-            {
-                std::cout << UNDERLINE << "\nCopy assignable test\n" << NORMAL << std::endl;
+        //  Test 3
+        if (typeid(ft_traits::value_type)==typeid(std_traits::value_type))
+            std::cout << GREEN << "Ierator traits test 3: SUCCESS!" << NORMAL << std::endl;
+        else
+            std::cout << RED << "Ierator traits test 3: ERROR" << NORMAL << std::endl;
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
+        std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
 
-
-                ft::vector<float>::iterator CopyLast(last);
-                ft::vector<float>::iterator CopyFirst(first);
-
-                ft::vector<float>::iterator assignCopyFirst = ++CopyFirst;
-                ft::vector<float>::iterator assignCopyLast = --CopyLast;
-
-                //  Test 0
-                if (assignCopyFirst == CopyFirst)
-                    std::cout << GREEN << "Copy assignation test 0: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Copy assignation test 0: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 1
-                if (assignCopyLast == CopyLast)
-                    std::cout << GREEN << "Copy assignation test 1: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Copy assignation test 1: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-            }
-
-        }
-
-        // ===============  Operator Overload tests ===============//
-        if (BIteratorOperatorOverload){
-            std::cout << RED << UNDERLINE << "\nOPERATOR OVERLOAD TEST'S" << NORMAL << std::endl;
-
-            //  Equality test
-            if (BIteratorEquality)
-            {
-                std::cout << UNDERLINE << "\nOperator overload equality test's\n" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
-        
-                //  Test 0
-                if (first == last)
-                    std::cout << RED << "Equality test 0: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Equality test 0: SUCCESS!" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 1
-                ft::vector<float>::iterator fCopy = first;
-                if (first == fCopy)
-                    std::cout << GREEN << "Equality test 1: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Equality test 1: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 2
-                ft::vector<float>::iterator lCopy = last;
-                if (last == lCopy)
-                    std::cout << GREEN << "Equality test 2: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Equality test 2: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 3
-                std::string str = "test";
-                ft::vector<std::string> strVec(5, str);
-                
-                ft::vector<std::string>::iterator   it0 = strVec.begin();
-                ft::vector<std::string>::iterator   it1 = strVec.begin();
-                it1++;
-
-                if (it0 == it1)
-                    std::cout << RED << "Equality test 3: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Equality test 3: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-            }
-        
-            //  Inequality test
-            if (BIteratorInequality)
-            {
-                std::cout << UNDERLINE << "\nOperator overload inequality test's\n" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
-
-                //  Test 0
-                if (first != last)
-                    std::cout << GREEN << "Inequality test 0: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Inequality test 0: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 1
-                std::string str = "test";
-                ft::vector<std::string> strVec(5, str);
-                
-                ft::vector<std::string>::iterator   it0 = strVec.begin();
-                ft::vector<std::string>::iterator   it1 = strVec.begin();
-
-                it1++;
-                if (it0 != it1)
-                    std::cout << GREEN << "Inequality test 1: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Inequality test 1: ERROR" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 2
-                it0++;
-                if (it0 != it1)
-                    std::cout << RED << "Inequality test 2: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Inequality test 2: SUCCESS!" << NORMAL << std::endl;
-                    
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 3
-                it1--;
-                if (it1 != it0)
-                    std::cout << GREEN << "Inequality test 3: SUCCESS!" << NORMAL << std::endl;
-                else
-                    std::cout << RED << "Inequality test 3: ERROR" << NORMAL << std::endl;
-
-                //  Test 4
-                it0--;
-                if (it1 != it0)
-                    std::cout << RED << "Inequality test 4: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Inequality test 4: SUCCESS!" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-            }
-        
-            //  Deference lvalue test's
-            if (BIteratorDeferenceLvalue)
-            {
-                std::cout << UNDERLINE << "\nOperator overload deference lvalue test's\n" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
-
-                ft::vector<float>::iterator fCopy = first;
-                ft::vector<float>::iterator lCopy = last;
-                
-                //  Test 0
-                if (*first != *fCopy)
-                    std::cout << RED << "Deference test 0: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 0: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 1
-                float   allo = 12.2;
-                fCopy++;
-
-                if (*fCopy != allo)
-                    std::cout << RED << "Deference test 1: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 1: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                ft::vector<std::string>  StrVec;
-                
-                StrVec.push_back("Allo 42 student");
-                StrVec.push_back("Ca va ?");
-
-                ft::vector<std::string>::iterator strIte = StrVec.begin();
-
-                //  Test 2
-                if (*strIte != "Allo 42 student")
-                    std::cout << RED << "Deference test 2: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 2: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 3
-                strIte++;
-                if (*strIte != "Ca va ?")
-                    std::cout << RED << "Deference test 3: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 3: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 4
-                ft::vector<ft::vector<float> >    vecOfVec;
-                
-                vecOfVec.push_back(x);
-
-                ft::vector<ft::vector<float> >::iterator    vecOfVecIte = vecOfVec.begin();
-                ft::vector<float>::iterator                 iteOfFirst  = (*vecOfVecIte).begin();
-
-                iteOfFirst++;
-                
-                if (roundf(*iteOfFirst) != 12)
-                    std::cout << RED << "Deference test 4: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 4: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 5
-                iteOfFirst--;
-
-                if (*iteOfFirst != 0)
-                    std::cout << RED << "Deference test 5: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 5: SUCCESS!" << NORMAL << std::endl;
-
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTest));
-
-                //  Test 6
-                float   var = *iteOfFirst;
-
-                var++;
-
-                if (*iteOfFirst == var)
-                    std::cout << RED << "Deference test 6: ERROR" << NORMAL << std::endl;
-                else
-                    std::cout << GREEN << "Deference test 6: SUCCESS!" << NORMAL << std::endl;
-            }
-        
-            //  Deference rvalue test's
-            if (BIteratorDeferenceRvalue)
-            {
-                std::cout << UNDERLINE << "\nOperator overload Deference rvalue test's\n" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
-
-                std::cout << GREEN << "Add test here :)" << NORMAL << std::endl;
-            }
-
-            //  Multipass test
-            if (BIteratorMultipass)
-            {
-                std::cout << UNDERLINE << "\nOperator overload Multipass test's\n" << NORMAL << std::endl;
-                
-                std::this_thread::sleep_for(std::chrono::milliseconds(MsBetweenTestType));
-
-                std::cout << GREEN << "Add test here :)" << NORMAL << std::endl;
-            }
-        }
-           
+        //  Test 4
+        if (typeid(ft_traits::reference)==typeid(std_traits::reference))
+            std::cout << GREEN << "Ierator traits test 4: SUCCESS!" << NORMAL << std::endl;
+        else
+            std::cout << RED << "Ierator traits test 5: ERROR" << NORMAL << std::endl;
     }
 	
     //  =============== Vector test's               =============== //

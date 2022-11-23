@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/16 17:14:00 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/23 13:55:46 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <map>
 #include <memory>
 #include <iostream>
-#include "iterator.hpp"
+#include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
 #include "const_iterator.hpp"
 #include "const_reverse_iterator.hpp"
@@ -33,11 +33,11 @@ namespace ft
             typedef typename    allocator_type::const_reference                 const_reference;
             typedef typename    allocator_type::pointer                         pointer;
             typedef typename    allocator_type::const_pointer                   const_pointer;
-            typedef typename    ft::iterator<value_type>                        iterator;
+            typedef typename    ft::vector_iterator<value_type>                 iterator;
             typedef typename    ft::reverse_iterator<value_type>                reverse_iterator;
             typedef typename    ft::const_iterator<const value_type>            const_iterator;
             typedef typename    ft::const_reverse_iterator<const value_type>    const_reverse_iterator;
-            typedef typename    ft::iterator<value_type>                        InputIterator;
+            typedef typename    ft::vector_iterator<value_type>                 InputIterator;
 
             //  Add difference type here
             typedef unsigned long long                                          size_type;
@@ -211,11 +211,11 @@ namespace ft
         //  =============== MODIFIER            =============== //
         
         //  Assign overload range -> Replace all memory in the vector for first to last
-        template<typename iter>
-        void    assign(iter first, iter last)
+        void    assign(iterator first, iterator last)
         {
+
             ft_deallocate();
-            for (iter ite = first; ite != last; ite++)
+            for (iterator ite = first; ite != last; ite++)
                 addVal(*ite);
         }
 
