@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by aguay             #+#    #+#              #
-#    Updated: 2022/11/23 14:17:23 by aguay            ###   ########.fr        #
+#    Updated: 2022/11/24 09:17:16 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,6 @@ SRCS_FILES		=								\
 
 HEADERS_HFILES	=								\
 					colors.hpp					\
-					const_iterator.hpp			\
-					const_reverse_iterator.hpp	\
 					include.hpp					\
 					iterator_tags.hpp			\
 					iterator_traits.hpp			\

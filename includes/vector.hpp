@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:56:38 by aguay             #+#    #+#             */
-/*   Updated: 2022/11/23 13:55:46 by aguay            ###   ########.fr       */
+/*   Updated: 2022/11/24 09:17:33 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include <iostream>
 #include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
-#include "const_iterator.hpp"
-#include "const_reverse_iterator.hpp"
 
 namespace ft
 {
@@ -35,8 +33,6 @@ namespace ft
             typedef typename    allocator_type::const_pointer                   const_pointer;
             typedef typename    ft::vector_iterator<value_type>                 iterator;
             typedef typename    ft::reverse_iterator<value_type>                reverse_iterator;
-            typedef typename    ft::const_iterator<const value_type>            const_iterator;
-            typedef typename    ft::const_reverse_iterator<const value_type>    const_reverse_iterator;
             typedef typename    ft::vector_iterator<value_type>                 InputIterator;
 
             //  Add difference type here
@@ -123,31 +119,6 @@ namespace ft
         {
             reverse_iterator    y(&(_ptr[-1]));
             
-            return (y);    
-        }
-        
-        //  Return a random access const iterator pointing at the first element in the vector
-        const_iterator      cbegin(void) const {const_iterator    y(&(_ptr[0]));return (y);}
-        
-        //  Return a random acces const iterator pointing at right after the last element in the vector
-        const_iterator      cend(void) const {const_iterator    y(&(_ptr[_nbElement]));return (y);}
-        
-        //  Return a random acces const reverse iterator pointing at the last element in the vector
-        const_reverse_iterator  crbegin(void) const 
-        {
-            if (_ptr && _nbElement > 0)
-            {
-                const_reverse_iterator y(&(_ptr[_nbElement - 1]));
-                return (y);
-            }
-            const_reverse_iterator y;
-            return (y);
-        }
-
-        //  Return a random acces const reverse iterator pointing at right before the first element in the vector
-        const_reverse_iterator crend(void) const 
-        {
-            const_reverse_iterator    y(&(_ptr[-1]));
             return (y);    
         }
 
